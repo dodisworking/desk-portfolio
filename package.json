@@ -1,0 +1,46 @@
+{
+  "name": "desk-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.js",
+    "optimize-assets": "node scripts/optimize-assets.mjs",
+    "optimize-assets:check": "node scripts/optimize-assets.mjs --check",
+    "electron": "electron electron/main.cjs",
+    "electron:build:win": "electron-builder --win --x64 --publish never --config electron-builder.json",
+    "electron:build:mac": "electron-builder --mac --publish never --config electron-builder.json"
+  },
+  "main": "electron/main.cjs",
+  "dependencies": {
+    "@react-three/drei": "^9.114.3",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.5",
+    "express": "^4.22.1",
+    "gsap": "^3.15.0",
+    "leva": "^0.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.3.0",
+    "@gltf-transform/extensions": "^4.3.0",
+    "@gltf-transform/functions": "^4.3.0",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "draco3dgltf": "^1.5.7",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
+    "gltfpack": "^1.1.0",
+    "meshoptimizer": "^1.1.1",
+    "sharp": "^0.34.5",
+    "vite": "^5.4.0"
+  }
+}

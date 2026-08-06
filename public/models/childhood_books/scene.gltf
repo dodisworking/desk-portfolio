@@ -1,0 +1,305 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 57207,
+      "max": [
+        0.32698333263397217,
+        -0.5797594785690308,
+        0.38609734177589417
+      ],
+      "min": [
+        -0.6127112507820129,
+        -0.8929902911186218,
+        -0.4922589361667633
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 686484,
+      "componentType": 5126,
+      "count": 57207,
+      "max": [
+        0.9997646808624268,
+        1.0,
+        0.9999666213989258
+      ],
+      "min": [
+        -0.9988228678703308,
+        -0.9797129034996033,
+        -0.9993991255760193
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 57207,
+      "max": [
+        0.999996542930603,
+        0.999997079372406,
+        0.9999952912330627,
+        1.0
+      ],
+      "min": [
+        -0.9999815821647644,
+        -0.9999939799308777,
+        -0.9999449849128723,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 57207,
+      "max": [
+        0.9966780543327332,
+        0.9999551177024841
+      ],
+      "min": [
+        1.0609626770019531e-05,
+        6.538629531860352e-05
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 299997,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "riemaeker (https://sketchfab.com/riemaeker)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/childhood-books-99d6bc041c9d4f56ab414b771e14474c",
+      "title": "Childhood books"
+    },
+    "generator": "Sketchfab-12.67.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 1199988,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 457656,
+      "byteOffset": 1199988,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1372968,
+      "byteOffset": 1657644,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 915312,
+      "byteOffset": 3030612,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 3945924,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/material_baseColor.png"
+    },
+    {
+      "uri": "textures/material_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/material_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "name": "material",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "g0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1102230246251565e-16,
+        -0.5,
+        0.0,
+        0.0,
+        0.5,
+        1.1102230246251565e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "USDRoot"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "books_full"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "Geom"
+    },
+    {
+      "children": [
+        5
+      ],
+      "name": "baked_mesh"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "Geom"
+    },
+    {
+      "children": [
+        7
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.12474775314331055,
+        0.8714956641197205,
+        0.0,
+        1.0
+      ],
+      "name": "g0"
+    },
+    {
+      "mesh": 0,
+      "name": "g0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- AUTO CACHE BUSTER — prevents the "you said you did it but
+         I'm seeing the old version" problem. The page checks a
+         build version on every load; mismatch triggers a one-shot
+         cache wipe + force-reload. -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script>
+      (function autoCacheBust() {
+        // Bump this on every UI change. Mismatch triggers a one-time
+        // cache clear + reload so the user always sees the latest code.
+        const APP_VERSION = '2026-06-29-restored-r493';
+        // NO MORE WIPES. Code-side defaults below are the source of
+        // truth. localStorage just remembers user nudges on top.
+        const stored = localStorage.getItem('app-version');
+        const reloadFlag = '__app-reloaded-' + APP_VERSION;
+        if (stored !== APP_VERSION && !sessionStorage.getItem(reloadFlag)) {
+          // Mark BEFORE reload so we don't loop.
+          sessionStorage.setItem(reloadFlag, '1');
+          localStorage.setItem('app-version', APP_VERSION);
+          const wipe = async () => {
+            try {
+              if ('serviceWorker' in navigator) {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(regs.map((r) => r.unregister()));
+              }
+            } catch {}
+            try {
+              if ('caches' in window) {
+                const keys = await caches.keys();
+                await Promise.all(keys.map((k) => caches.delete(k)));
+              }
+            } catch {}
+            // Hard reload with cache bypass via timestamped URL.
+            const u = new URL(location.href);
+            u.searchParams.set('_v', Date.now().toString());
+            location.replace(u.toString());
+          };
+          wipe();
+        }
+      })();
+    </script>
+    <!-- ════════════════════════════════════════════════════════════════════
+         PROD / RECRUITER mode — hide ALL dev UI
+
+         Trigger: ?prod=1 in query string, or #prod in the URL hash.
+         Effect: adds <html class="prod"> so any code can react, and
+         injects a <style> that hides sliders, Leva GUI, and any
+         element whose class or data-attr identifies it as a dev panel.
+         Kept intentionally tiny — does NOT touch portfolioOverlay.js.
+         ════════════════════════════════════════════════════════════════════ -->
+    <script>
+      (function prodGate() {
+        try {
+          const q = new URLSearchParams(location.search);
+          const isProd = q.get('prod') === '1' || /(^|&)prod(=|$)/i.test(location.hash.slice(1)) || location.hash === '#prod';
+          if (!isProd) return;
+          document.documentElement.classList.add('prod');
+          const s = document.createElement('style');
+          s.setAttribute('data-prod-hide', '');
+          s.textContent = `
+            /* Hide anything the dev overlay creates. Selectors are
+               deliberately broad — anything class-tagged as a "panel",
+               any dev range slider, and Leva's mount node. */
+            html.prod [class*="panel" i],
+            html.prod [class*="Panel"],
+            html.prod [data-panel],
+            html.prod [data-dev-panel],
+            html.prod #leva-container,
+            html.prod .leva-c-kWgxhW,
+            html.prod div[class*="leva" i],
+            html.prod input[type="range"] {
+              display: none !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+          `;
+          // Insert as early as possible so nothing flashes.
+          (document.head || document.documentElement).appendChild(s);
+        } catch (e) { /* never block the app on prod-mode errors */ }
+      })();
+    </script>
+    <title>Pixar Portfolio — Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+      html, body, #root { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; font-family: system-ui, sans-serif; }
+      /* ---------- 32-bit "Building the Magic" loading overlay ---------- */
+      /* Shown in WEBSITE mode while room.glb + main props are streaming. */
+      /* main.jsx removes it once the scene is ready. */
+      #__boot-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: radial-gradient(ellipse at center, #1a0d24 0%, #06030c 60%, #000 100%);
+        color: #ffd66b;
+        font-family: 'Press Start 2P', 'Courier New', monospace;
+        image-rendering: pixelated;
+        transition: opacity 0.8s ease-in-out;
+      }
+      #__boot-overlay.fade-out { opacity: 0; pointer-events: none; }
+      #__boot-overlay .title {
+        font-size: 22px; letter-spacing: 1px; margin-bottom: 8px;
+        color: #ffd66b; text-shadow: 2px 2px 0 #5d2a0e, 4px 4px 0 #1a0d24;
+      }
+      #__boot-overlay .subtitle {
+        font-size: 9px; opacity: 0.7; color: #ffb060; margin-bottom: 36px;
+        text-shadow: 1px 1px 0 #1a0d24;
+        letter-spacing: 2px;
+      }
+      #__boot-overlay .bar-wrap {
+        width: 320px; height: 22px; background: #1a0d24;
+        border: 2px solid #ffd66b; padding: 3px; box-sizing: content-box;
+        box-shadow: 4px 4px 0 #06030c, inset 0 0 0 1px #06030c;
+        image-rendering: pixelated;
+      }
+      #__boot-overlay .bar-inner {
+        height: 100%; width: 0%;
+        background: repeating-linear-gradient(
+          90deg, #ff8a3d 0px, #ff8a3d 8px, #ff5d00 8px, #ff5d00 16px
+        );
+        transition: width 0.4s ease-out;
+        box-shadow: inset 0 -3px 0 rgba(0,0,0,0.4), inset 0 3px 0 rgba(255,255,255,0.2);
+      }
+      #__boot-overlay .status {
+        margin-top: 18px; font-size: 8px; color: #ffd9a8;
+        min-height: 14px; letter-spacing: 1.5px;
+      }
+      #__boot-overlay .blink::after {
+        content: '_'; animation: __blink 1s steps(2, end) infinite;
+      }
+      @keyframes __blink { 0%, 50% { opacity: 1; } 50.1%, 100% { opacity: 0; } }
+      /* dotted pixel-grid background pattern */
+      #__boot-overlay::before {
+        content: ''; position: absolute; inset: 0;
+        background-image:
+          radial-gradient(circle at 6px 6px, rgba(255, 214, 107, 0.06) 1px, transparent 1px);
+        background-size: 12px 12px;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 32-bit boot overlay — shown while WebGL scene streams in -->
+    <div id="__boot-overlay">
+      <div class="title">LOADING THE MAGIC</div>
+      <div class="subtitle">∙ ∙ ∙   BUILDING THE EXPERIENCE   ∙ ∙ ∙</div>
+      <div class="bar-wrap"><div class="bar-inner" id="__boot-bar"></div></div>
+      <div class="status blink" id="__boot-status">WARMING UP</div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Pixel-streaming gate (production / visitor mode only)
+
+         Hides the local WebGL scene behind a "▶ Enter the room" button.
+         Click → calls /api/hyperbeam-session → opens Hyperbeam's streamed
+         Chrome in a fullscreen iframe → visitor sees the portfolio
+         rendered on a cloud GPU at full Pixar quality, regardless of
+         their device. Their browser only plays video + sends mouse clicks.
+
+         Skip cases (keep local WebGL):
+           • localhost → build mode, editor experience
+           • ?stream=1 query → THIS is the page the streamed Chrome itself
+             loads (so we don't recurse and try to stream-the-stream)
+         ════════════════════════════════════════════════════════════════════ -->
+    <script>
+      (function pixelStreamGate() {
+        const host = location.hostname;
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || /\.local$/.test(host);
+        const isInsideStream = new URLSearchParams(location.search).has('stream');
+        if (isLocal || isInsideStream) return;   // local WebGL runs as normal
+
+        // VISITOR MODE: kill the boot overlay (it's WebGL-loading UI), and
+        // show the streaming gate instead. main.jsx itself early-aborts
+        // before creating any WebGL context, so the visitor's device
+        // never allocates GPU memory — only video playback when they click.
+        const boot = document.getElementById('__boot-overlay');
+        if (boot) boot.remove();
+
+        const gate = document.createElement('div');
+        gate.id = '__stream-gate';
+        gate.style.cssText = `
+          position: fixed; inset: 0; z-index: 10000;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          background: radial-gradient(ellipse at center, #1a0d24 0%, #06030c 60%, #000 100%);
+          color: #ffd66b;
+          font-family: 'Press Start 2P', 'Courier New', monospace;
+          image-rendering: pixelated;
+          padding: 20px;
+        `;
+        gate.innerHTML = `
+          <div style="font-size: 22px; letter-spacing: 1px; margin-bottom: 14px; color: #ffd66b; text-shadow: 2px 2px 0 #5d2a0e, 4px 4px 0 #1a0d24;">
+            PIXAR · DESK · PORTFOLIO
+          </div>
+          <div style="font-size: 10px; opacity: 0.7; color: #ffb060; margin-bottom: 38px; letter-spacing: 2px;">
+            ∙ ∙ ∙   STREAMING FROM CLOUD GPU   ∙ ∙ ∙
+          </div>
+          <button id="__stream-enter"
+                  style="font-family: inherit; font-size: 14px; letter-spacing: 1px; cursor: pointer;
+                         padding: 14px 28px; border: 2px solid #ffd66b;
+                         background: #ff5d00; color: #fff; box-shadow: 4px 4px 0 #06030c;
+                         text-shadow: 1px 1px 0 #5d2a0e;">
+            ▶  ENTER THE ROOM
+          </button>
+          <div id="__stream-status" style="margin-top: 28px; font-size: 9px; color: #ffd9a8; min-height: 14px; letter-spacing: 1.5px;">CLICK TO BEGIN</div>
+        `;
+        document.body.appendChild(gate);
+
+        const setStatus = (t) => { const e = document.getElementById('__stream-status'); if (e) e.textContent = t; };
+
+        document.getElementById('__stream-enter').addEventListener('click', async () => {
+          setStatus('SPINNING UP CLOUD GPU…');
+          try {
+            const r = await fetch('/api/hyperbeam-session', { method: 'POST' });
+            if (!r.ok) throw new Error('session create failed (' + r.status + ')');
+            const { embed_url } = await r.json();
+            if (!embed_url) throw new Error('no embed URL returned');
+            // Swap gate contents for the fullscreen iframe.
+            gate.innerHTML = `
+              <iframe src="${embed_url}"
+                      style="position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; background: #000;"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen"
+                      allowfullscreen></iframe>`;
+          } catch (err) {
+            console.error('[stream] failed', err);
+            setStatus('⚠ STREAM FAILED — ' + (err.message || err));
+          }
+        });
+
+        // (boot overlay already removed above)
+      })();
+    </script>
+  </body>
+</html>

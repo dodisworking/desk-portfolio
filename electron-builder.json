@@ -1,0 +1,24 @@
+{
+  "appId": "com.dodisworking.deskportfolio",
+  "productName": "DeskPortfolio",
+  "directories": {
+    "output": "dist-electron",
+    "buildResources": "electron"
+  },
+  "files": [
+    "electron/main.cjs",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      { "target": "zip", "arch": ["x64"] }
+    ],
+    "artifactName": "DeskPortfolio-${arch}.zip",
+    "signAndEditExecutable": false,
+    "signtoolOptions": null
+  },
+  "mac": {
+    "target": "dmg",
+    "category": "public.app-category.entertainment"
+  }
+}

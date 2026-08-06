@@ -1,0 +1,11 @@
+Model Information:
+* title:	Childhood books
+* source:	https://sketchfab.com/3d-models/childhood-books-99d6bc041c9d4f56ab414b771e14474c
+* author:	riemaeker (https://sketchfab.com/riemaeker)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Childhood books" (https://sketchfab.com/3d-models/childhood-books-99d6bc041c9d4f56ab414b771e14474c) by riemaeker (https://sketchfab.com/riemaeker) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,72 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+.next/
+out/
+build/
+dist/
+
+# secrets
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dev-intermediate 3D assets (Tripo/Blender sources, NOT shipped to prod).
+# Only the final GLBs in public/models/ get deployed — those ARE committed
+# (via Git LFS — see .gitattributes).
+assets/generated/
+assets/raw/
+
+# blender working files
+*.blend1
+*.blend@
+blender/
+*.blend
+*.blend.bak
+
+# GLB backups (we keep only the live versions in public/models/)
+*.glb.bak
+*.bak
+
+# chrome recovery scratch (not for commit)
+/tmp/chrome-recovery/
+
+# recovered scene data (private — don't commit user state)
+public/recovered-best.json
+public/recovered-shelf-lights.json
+
+# locally-saved baselines (private user state)
+data/baselines/
+
+# Railway artifacts
+.railway/
+.railway-push-secret.local
+.tools/
+
+# Electron build output (huge — 160 MB .zip + 216 MB .exe). Not deployed.
+dist-electron/
+
+# working dirs from tonight's compression
+.stash-items-bank-2/
+.tmp-videos*/
+.videos-holding/
+.backup-orig/
+.compress-log/
+
+# Heavy assets — served via CDN in prod, kept locally for dev
+public/models/
+public/videos/
+public/items-bank/
+public/items-bank-2/
+public/textures/
+public/hdri/

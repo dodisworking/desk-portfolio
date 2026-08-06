@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "blender": {
+      "type": "stdio",
+      "command": "/Users/jarvis/.local/bin/uvx",
+      "args": ["blender-mcp"]
+    }
+  }
+}

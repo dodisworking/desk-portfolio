@@ -1,0 +1,11 @@
+Model Information:
+* title:	Finn's Sword
+* source:	https://sketchfab.com/3d-models/finns-sword-5a1ed61119f84d80a4ff0287d10deeeb
+* author:	Felicity_Luna (https://sketchfab.com/Felicity_Luna)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Finn's Sword" (https://sketchfab.com/3d-models/finns-sword-5a1ed61119f84d80a4ff0287d10deeeb) by Felicity_Luna (https://sketchfab.com/Felicity_Luna) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
